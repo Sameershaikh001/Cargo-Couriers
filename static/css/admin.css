@@ -1,0 +1,136 @@
+/* Admin Panel Styles */
+body {
+    background-color: #f8f9fc;
+}
+
+#sidebar {
+    min-height: calc(100vh - 56px);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar .nav-link {
+    color: #6e707e;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid transparent;
+}
+
+.sidebar .nav-link:hover {
+    color: #4e73df;
+    background-color: #eaecf4;
+}
+
+.sidebar .nav-link.active {
+    color: #4e73df;
+    background-color: #eaecf4;
+    border-left-color: #4e73df;
+    font-weight: 600;
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.card .card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+
+.text-xs {
+    font-size: 0.7rem;
+}
+
+/* Table Styles */
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #6e707e;
+    background-color: #f8f9fc;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+/* Button Styles */
+.btn-group-sm > .btn, .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* Modal Styles */
+.modal-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #sidebar {
+        min-height: auto;
+    }
+    
+    .sidebar .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Status Indicators */
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.status-online { background-color: #1cc88a; }
+.status-offline { background-color: #e74a3b; }
+.status-pending { background-color: #f6c23e; }

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Rate Calculator - AWT Cargo & Couriers{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 76px;">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-calculator me-2"></i>Rate Calculator</h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="lead">Get instant shipping estimates based on weight, distance, and service type.</p>
+                    
+                    <form id="rateCalculatorForm" method="POST" action="{{ url_for('calculator') }}">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Parcel Weight (kg) *</label>
+                                    <input type="number" id="weight" name="weight" class="form-control" 
+                                           step="0.1" min="0.1" placeholder="e.g., 2.5" required>
+                                    <div class="form-text">Minimum weight: 0.1 kg</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Distance (km) *</label>
+                                    <input type="number" id="distance" name="distance" class="form-control" 
+                                           min="1" placeholder="e.g., 50" required>
+                                    <div class="form-text">Approximate distance</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Service Type *</label>
+                                    <select id="service_type" name="service_type" class="form-select" required>
+                                        <option value="standard">Standard (3-5 days)</option>
+                                        <option value="express">Express (1-2 days)</option>
+                                        <option value="same_day">Same Day Delivery</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-calculator me-2"></i>Calculate Rate
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Rate Result Display -->
+                    <div id="rateResult" class="mt-4">
+                        {% if rate %}
+                        <div class="alert alert-info fade-in">
+                            <h4>Estimated Shipping Rate: ₹{{ "%.2f"|format(rate) }}</h4>
+                            <p class="mb-1"><strong>Service:</strong> 
+                                {% if request.form.service_type == 'standard' %}Standard Delivery
+                                {% elif request.form.service_type == 'express' %}Express Delivery
+                                {% elif request.form.service_type == 'same_day' %}Same Day Delivery
+                                {% endif %}
+                            </p>
+                            <p class="mb-1"><strong>Weight:</strong> {{ request.form.weight }} kg</p>
+                            <p class="mb-0"><strong>Distance:</strong> {{ request.form.distance }} km</p>
+                            <hr>
+                            <small class="text-muted">* This is an estimate. Final rate may vary based on actual weight, dimensions, and delivery location.</small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pricing Information -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Pricing Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="border rounded p-3">
+                                <h6 class="text-primary">Standard Delivery</h6>
+                                <h4>₹50 +</h4>
+                                <p class="text-muted">Base rate starts from ₹50</p>
+                                <ul class="list-unstyled small">
+                                    <li>✓ 3-5 business days</li>
+                                    <li>✓ ₹2 per km</li>
+                                    <li>✓ ₹8 per kg</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="border rounded p-3">
+                                <h6 class="text-primary">Express Delivery</h6>
+                                <h4>₹80 +</h4>
+                                <p class="text-muted">Base rate starts from ₹80</p>
+                                <ul class="list-unstyled small">
+                                    <li>✓ 1-2 business days</li>
+                                    <li>✓ ₹3 per km</li>
+                                    <li>✓ ₹10 per kg</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="border rounded p-3">
+                                <h6 class="text-primary">Same Day</h6>
+                                <h4>₹120 +</h4>
+                                <p class="text-muted">Base rate starts from ₹120</p>
+                                <ul class="list-unstyled small">
+                                    <li>✓ Same day delivery</li>
+                                    <li>✓ ₹5 per km</li>
+                                    <li>✓ ₹12 per kg</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+{% endblock %}

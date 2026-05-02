@@ -1,0 +1,176 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin Dashboard - AWT Cargo{% endblock %}
+
+{% block page_title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Statistics Cards -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Parcels
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_parcels }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-box fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Delivered
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ delivered_parcels }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            In Transit
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ transit_parcels }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-shipping-fast fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Pending Partners
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_partners }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-handshake fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Parcels -->
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Recent Parcels</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Tracking No.</th>
+                                <th>Sender</th>
+                                <th>Receiver</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for parcel in recent_parcels %}
+                            <tr>
+                                <td><strong>{{ parcel[1] }}</strong></td>
+                                <td>{{ parcel[2] }}</td>
+                                <td>{{ parcel[5] }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if parcel[12] == 'Delivered' %}bg-success
+                                        {% elif parcel[12] == 'In Transit' %}bg-warning
+                                        {% else %}bg-info{% endif %}">
+                                        {{ parcel[12] }}
+                                    </span>
+                                </td>
+                                <td>{{ parcel[13][:10] }}</td>
+                                <td>
+                                    <a href="{{ url_for('admin_parcel_detail', tracking_number=parcel[1]) }}" 
+                                       class="btn btn-sm btn-primary">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('admin_parcels') }}" class="btn btn-primary btn-block">
+                        <i class="fas fa-box me-2"></i>Manage Parcels
+                    </a>
+                    <a href="{{ url_for('admin_partners') }}" class="btn btn-warning btn-block">
+                        <i class="fas fa-handshake me-2"></i>Manage Partners
+                    </a>
+                    <a href="{{ url_for('admin_users') }}" class="btn btn-info btn-block">
+                        <i class="fas fa-users me-2"></i>Manage Users
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Info -->
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">System Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <strong>Total Users:</strong> {{ total_users }}
+                </div>
+                <div class="mb-2">
+                    <strong>Total Partners:</strong> {{ total_partners }}
+                </div>
+                <div class="mb-2">
+                    <strong>Booked Parcels:</strong> {{ booked_parcels }}
+                </div>
+                <div class="mb-0">
+                    <strong>Logged in as:</strong> {{ session.get('admin_username') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

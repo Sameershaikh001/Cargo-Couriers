@@ -1,0 +1,160 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Manage Partners - AWT Cargo{% endblock %}
+
+{% block page_title %}Partner Management{% endblock %}
+
+{% block header_buttons %}
+    <div class="btn-group">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Partner Applications</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="partnersTable" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Company</th>
+                        <th>Contact Person</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Service Area</th>
+                        <th>Business Type</th>
+                        <th>Status</th>
+                        <th>Applied Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for partner in partners %}
+                    <tr>
+                        <td><strong>{{ partner[1] }}</strong></td>
+                        <td>{{ partner[2] }}</td>
+                        <td>{{ partner[3] }}</td>
+                        <td>{{ partner[4] }}</td>
+                        <td>{{ partner[6] }}</td>
+                        <td>{{ partner[7]|title }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if partner[9] == 'Approved' %}bg-success
+                                {% elif partner[9] == 'Rejected' %}bg-danger
+                                {% else %}bg-warning{% endif %}">
+                                {{ partner[9] }}
+                            </span>
+                        </td>
+                        <td>{{ partner[10][:10] }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" 
+                                        data-bs-target="#statusModal{{ partner[0] }}" title="Update Status">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal" 
+                                        data-bs-target="#detailsModal{{ partner[0] }}" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Status Update Modal -->
+                    <div class="modal fade" id="statusModal{{ partner[0] }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update Partner Status</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form method="POST" action="{{ url_for('update_partner_status') }}">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="partner_id" value="{{ partner[0] }}">
+                                        <div class="mb-3">
+                                            <label class="form-label">Status</label>
+                                            <select name="status" class="form-select" required>
+                                                <option value="Pending" {% if partner[9] == 'Pending' %}selected{% endif %}>Pending</option>
+                                                <option value="Approved" {% if partner[9] == 'Approved' %}selected{% endif %}>Approved</option>
+                                                <option value="Rejected" {% if partner[9] == 'Rejected' %}selected{% endif %}>Rejected</option>
+                                            </select>
+                                        </div>
+                                        <p class="text-muted small">
+                                            Company: {{ partner[1] }}<br>
+                                            Contact: {{ partner[2] }}<br>
+                                            Email: {{ partner[3] }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Update Status</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details Modal -->
+                    <div class="modal fade" id="detailsModal{{ partner[0] }}" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Partner Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>Company Information</h6>
+                                            <p><strong>Company Name:</strong> {{ partner[1] }}</p>
+                                            <p><strong>Contact Person:</strong> {{ partner[2] }}</p>
+                                            <p><strong>Email:</strong> {{ partner[3] }}</p>
+                                            <p><strong>Phone:</strong> {{ partner[4] }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Business Details</h6>
+                                            <p><strong>Address:</strong> {{ partner[5] }}</p>
+                                            <p><strong>Service Area:</strong> {{ partner[6] }}</p>
+                                            <p><strong>Business Type:</strong> {{ partner[7]|title }}</p>
+                                            <p><strong>Status:</strong> 
+                                                <span class="badge 
+                                                    {% if partner[9] == 'Approved' %}bg-success
+                                                    {% elif partner[9] == 'Rejected' %}bg-danger
+                                                    {% else %}bg-warning{% endif %}">
+                                                    {{ partner[9] }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if partner[8] %}
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <h6>Additional Message</h6>
+                                            <p>{{ partner[8] }}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <small class="text-muted">Applied on: {{ partner[10] }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

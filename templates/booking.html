@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Book Courier - AWT Cargo & Couriers{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 76px;">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-box me-2"></i>Book Courier Service</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('booking') }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="border-bottom pb-2">Sender Details</h5>
+                                <div class="mb-3">
+                                    <label class="form-label">Sender Name *</label>
+                                    <input type="text" name="sender_name" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number *</label>
+                                    <input type="tel" name="sender_phone" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Pickup Address *</label>
+                                    <textarea name="sender_address" class="form-control" rows="3" required></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5 class="border-bottom pb-2">Receiver Details</h5>
+                                <div class="mb-3">
+                                    <label class="form-label">Receiver Name *</label>
+                                    <input type="text" name="receiver_name" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number *</label>
+                                    <input type="tel" name="receiver_phone" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Delivery Address *</label>
+                                    <textarea name="receiver_address" class="form-control" rows="3" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Parcel Weight (kg) *</label>
+                                    <input type="number" name="weight" class="form-control" step="0.1" min="0.1" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Service Type *</label>
+                                    <select name="service_type" class="form-select" required>
+                                        <option value="standard">Standard Delivery (3-5 days)</option>
+                                        <option value="express">Express Delivery (1-2 days)</option>
+                                        <option value="same_day">Same Day Delivery</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Parcel Description</label>
+                            <textarea name="description" class="form-control" rows="2" placeholder="Describe the contents of your parcel"></textarea>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Book Courier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

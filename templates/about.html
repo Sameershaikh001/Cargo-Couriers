@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - AWT Cargo & Couriers{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5" style="margin-top: 76px;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">About AWT Cargo & Couriers</h1>
+                <p class="lead">Your trusted partner in logistics and courier services since 2024.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='images/about-hero.jpg') }}" alt="About AWT Cargo" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Story -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-center mb-5">Our Story</h2>
+                <p class="lead text-center">
+                    AWT Cargo & Couriers Solution Pvt. Ltd. was founded with a simple mission: to make parcel booking, tracking, and customer communication fast, simple, and transparent.
+                </p>
+                
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <h4>Our Mission</h4>
+                        <p>To provide reliable, affordable, and efficient courier services while leveraging technology to create seamless customer experiences.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Our Vision</h4>
+                        <p>To become the most trusted logistics partner for businesses and individuals across India, known for our reliability and customer-centric approach.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col">
+                <h2>Why Choose AWT Cargo?</h2>
+                <p class="lead">We stand out from the competition</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center border-0">
+                    <div class="card-body">
+                        <i class="fas fa-bolt fa-3x text-warning mb-3"></i>
+                        <h5>Fast Delivery</h5>
+                        <p>Same-day and next-day delivery options with real-time tracking updates.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center border-0">
+                    <div class="card-body">
+                        <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+                        <h5>Secure Handling</h5>
+                        <p>Your parcels are handled with care and delivered safely to their destination.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center border-0">
+                    <div class="card-body">
+                        <i class="fas fa-rupee-sign fa-3x text-info mb-3"></i>
+                        <h5>Affordable Pricing</h5>
+                        <p>Competitive rates with transparent pricing and no hidden charges.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center border-0">
+                    <div class="card-body">
+                        <i class="fas fa-map-marked-alt fa-3x text-primary mb-3"></i>
+                        <h5>Wide Coverage</h5>
+                        <p>Service available in urban, semi-urban, and rural areas across multiple states.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center border-0">
+                    <div class="card-body">
+                        <i class="fas fa-headset fa-3x text-secondary mb-3"></i>
+                        <h5>24/7 Support</h5>
+                        <p>Dedicated customer support team available via phone, email, and WhatsApp.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center border-0">
+                    <div class="card-body">
+                        <i class="fas fa-leaf fa-3x text-success mb-3"></i>
+                        <h5>Eco-Friendly</h5>
+                        <p>Committed to sustainable practices with recyclable packaging materials.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Values -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="text-center mb-5">Our Values</h2>
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="value-icon">
+                            <i class="fas fa-users fa-2x text-primary mb-3"></i>
+                        </div>
+                        <h5>Customer First</h5>
+                        <p>Our customers are at the heart of everything we do. We strive to exceed expectations.</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="value-icon">
+                            <i class="fas fa-gem fa-2x text-primary mb-3"></i>
+                        </div>
+                        <h5>Integrity</h5>
+                        <p>We conduct our business with honesty, transparency, and ethical practices.</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="value-icon">
+                            <i class="fas fa-rocket fa-2x text-primary mb-3"></i>
+                        </div>
+                        <h5>Innovation</h5>
+                        <p>We continuously improve our services through technology and process innovation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <h3 class="display-4 fw-bold">500+</h3>
+                <p>Daily Shipments</p>
+            </div>
+            <div class="col-md-3">
+                <h3 class="display-4 fw-bold">50+</h3>
+                <p>Cities Served</p>
+            </div>
+            <div class="col-md-3">
+                <h3 class="display-4 fw-bold">1000+</h3>
+                <p>Happy Customers</p>
+            </div>
+            <div class="col-md-3">
+                <h3 class="display-4 fw-bold">99%</h3>
+                <p>On-Time Delivery</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

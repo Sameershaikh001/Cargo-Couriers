@@ -1,0 +1,180 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Parcel Details - {{ parcel[1] }} - AWT Cargo{% endblock %}
+
+{% block page_title %}Parcel Details: {{ parcel[1] }}{% endblock %}
+
+{% block header_buttons %}
+    <div class="btn-group">
+        <a href="{{ url_for('admin_parcels') }}" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Back to Parcels
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Parcel Information -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Parcel Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Sender Details</h6>
+                        <p><strong>Name:</strong> {{ parcel[2] }}</p>
+                        <p><strong>Phone:</strong> {{ parcel[3] }}</p>
+                        <p><strong>Address:</strong> {{ parcel[4] }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Receiver Details</h6>
+                        <p><strong>Name:</strong> {{ parcel[5] }}</p>
+                        <p><strong>Phone:</strong> {{ parcel[6] }}</p>
+                        <p><strong>Address:</strong> {{ parcel[7] }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Weight:</strong> {{ parcel[9] }} kg</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Service Type:</strong> {{ parcel[11]|title }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Current Status:</strong> 
+                            <span class="badge 
+                                {% if parcel[12] == 'Delivered' %}bg-success
+                                {% elif parcel[12] == 'In Transit' %}bg-warning
+                                {% elif parcel[12] == 'Booked' %}bg-info
+                                {% else %}bg-secondary{% endif %}">
+                                {{ parcel[12] }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                {% if parcel[10] %}
+                <div class="row">
+                    <div class="col-12">
+                        <p><strong>Description:</strong> {{ parcel[10] }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Tracking History -->
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tracking History</h6>
+            </div>
+            <div class="card-body">
+                {% if updates %}
+                <div class="timeline">
+                    {% for update in updates %}
+                    <div class="timeline-item {% if loop.first %}current{% endif %}">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h6 class="mb-1">{{ update[2] }}</h6>
+                            <p class="text-muted mb-1">{{ update[4] }}</p>
+                            {% if update[3] %}<small class="text-muted">Location: {{ update[3] }}</small>{% endif %}
+                            {% if update[5] %}<br><small class="text-muted">Notes: {{ update[5] }}</small>{% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No tracking updates available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Quick Actions -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_parcel_status') }}">
+                    <input type="hidden" name="tracking_number" value="{{ parcel[1] }}">
+                    <div class="mb-3">
+                        <label class="form-label">Update Status</label>
+                        <select name="status" class="form-select" required>
+                            <option value="Booked" {% if parcel[12] == 'Booked' %}selected{% endif %}>Booked</option>
+                            <option value="Picked Up" {% if parcel[12] == 'Picked Up' %}selected{% endif %}>Picked Up</option>
+                            <option value="In Transit" {% if parcel[12] == 'In Transit' %}selected{% endif %}>In Transit</option>
+                            <option value="Out for Delivery" {% if parcel[12] == 'Out for Delivery' %}selected{% endif %}>Out for Delivery</option>
+                            <option value="Delivered" {% if parcel[12] == 'Delivered' %}selected{% endif %}>Delivered</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" name="location" class="form-control" 
+                               value="{{ parcel[15] or '' }}" placeholder="Current location">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Notes</label>
+                        <textarea name="notes" class="form-control" rows="3" 
+                                  placeholder="Delivery notes"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save me-1"></i>Update Status
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Parcel Summary -->
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Parcel Summary</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Tracking Number:</strong><br>{{ parcel[1] }}</p>
+                <p><strong>Booking Date:</strong><br>{{ parcel[13] }}</p>
+                {% if parcel[14] %}
+                <p><strong>Estimated Delivery:</strong><br>{{ parcel[14] }}</p>
+                {% endif %}
+                {% if parcel[15] %}
+                <p><strong>Current Location:</strong><br>{{ parcel[15] }}</p>
+                {% endif %}
+                {% if parcel[16] %}
+                <p><strong>Delivery Notes:</strong><br>{{ parcel[16] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #6c757d;
+}
+.timeline-item.current .timeline-marker {
+    background-color: #198754;
+}
+.timeline-content {
+    padding-bottom: 10px;
+    border-left: 2px solid #dee2e6;
+    padding-left: 20px;
+}
+</style>
+{% endblock %}

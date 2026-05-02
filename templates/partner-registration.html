@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Partner With Us - AWT Cargo & Couriers{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 76px;">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-handshake me-2"></i>Partner With Us</h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="lead">Join our growing network of delivery partners and franchisees. Grow your business with AWT Cargo.</p>
+                    
+                    <form method="POST" action="{{ url_for('partner_registration') }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Company Name *</label>
+                                    <input type="text" name="company_name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Contact Person *</label>
+                                    <input type="text" name="contact_person" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Address *</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number *</label>
+                                    <input type="tel" name="phone" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Business Address *</label>
+                            <textarea name="address" class="form-control" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Service Area *</label>
+                                    <input type="text" name="service_area" class="form-control" placeholder="City/District" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Business Type *</label>
+                                    <select name="business_type" class="form-select" required>
+                                        <option value="">Select Business Type</option>
+                                        <option value="franchise">Franchise Partner</option>
+                                        <option value="delivery">Delivery Partner</option>
+                                        <option value="corporate">Corporate Partner</option>
+                                        <option value="logistics">Logistics Partner</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Additional Message</label>
+                            <textarea name="message" class="form-control" rows="4" placeholder="Tell us about your business experience and expectations"></textarea>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Benefits Section -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5>Why Partner With Us?</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>✓ Brand Recognition</li>
+                                <li>✓ Training & Support</li>
+                                <li>✓ Marketing Assistance</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>✓ Technology Platform</li>
+                                <li>✓ Growth Opportunities</li>
+                                <li>✓ Competitive Commission</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

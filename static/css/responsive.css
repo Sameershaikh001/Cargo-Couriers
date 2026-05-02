@@ -1,0 +1,210 @@
+/* Responsive Design Enhancements */
+
+/* Large devices (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Medium devices (tablets, 768px to 1199px) */
+@media (max-width: 1199.98px) {
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section {
+        padding: 4rem 0;
+    }
+}
+
+/* Small devices (landscape phones, 576px to 767px) */
+@media (max-width: 767.98px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-section {
+        padding: 3rem 0;
+        text-align: center;
+    }
+    
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .navbar-brand img {
+        height: 30px;
+    }
+    
+    /* Card adjustments for mobile */
+    .card-body {
+        padding: 1rem;
+    }
+    
+    /* Form adjustments */
+    .form-control-lg {
+        font-size: 1rem;
+    }
+    
+    /* Table responsive */
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    /* Timeline adjustments */
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline-marker {
+        left: -20px;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .display-4 {
+        font-size: 1.75rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    /* Navigation adjustments */
+    .navbar-nav {
+        text-align: center;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0;
+    }
+    
+    /* Button groups */
+    .btn-group-vertical {
+        width: 100%;
+    }
+    
+    .btn-group-vertical .btn {
+        margin-bottom: 5px;
+    }
+    
+    /* Form adjustments */
+    .input-group-lg > .form-control {
+        font-size: 1rem;
+    }
+    
+    /* Card deck to stack */
+    .card-deck {
+        display: block;
+    }
+    
+    .card-deck .card {
+        margin-bottom: 1rem;
+    }
+    
+    /* Service cards */
+    .service-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .service-card i {
+        font-size: 2rem;
+    }
+    
+    /* Statistics */
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .btn,
+    .alert,
+    footer {
+        display: none !important;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .card {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .navbar-brand img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    /* Base dark mode styles can be added here */
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .fade-in {
+        animation: none;
+    }
+    
+    .card {
+        transition: none;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .card:hover {
+        transform: none;
+    }
+    
+    .btn:hover {
+        transform: none;
+    }
+    
+    /* Increase touch targets */
+    .btn, 
+    .nav-link,
+    .form-control,
+    .form-select {
+        min-height: 44px;
+    }
+    
+    .btn-sm {
+        min-height: 36px;
+    }
+}

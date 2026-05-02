@@ -1,0 +1,142 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Manage Parcels - AWT Cargo{% endblock %}
+
+{% block page_title %}Parcel Management{% endblock %}
+
+{% block header_buttons %}
+    <div class="btn-group">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">All Parcels</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="parcelsTable" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Tracking No.</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Weight</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Booking Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for parcel in parcels %}
+                    <tr>
+                        <td><strong>{{ parcel[1] }}</strong></td>
+                        <td>{{ parcel[2] }}<br><small class="text-muted">{{ parcel[3] }}</small></td>
+                        <td>{{ parcel[5] }}<br><small class="text-muted">{{ parcel[6] }}</small></td>
+                        <td>{{ parcel[9] }} kg</td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                {{ parcel[11]|title }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge 
+                                {% if parcel[12] == 'Delivered' %}bg-success
+                                {% elif parcel[12] == 'In Transit' %}bg-warning
+                                {% elif parcel[12] == 'Booked' %}bg-info
+                                {% else %}bg-secondary{% endif %}">
+                                {{ parcel[12] }}
+                            </span>
+                        </td>
+                        <td>{{ parcel[13][:16] }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('admin_parcel_detail', tracking_number=parcel[1]) }}" 
+                                   class="btn btn-primary" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" 
+                                        data-bs-target="#statusModal{{ parcel[0] }}" title="Update Status">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Status Update Modal -->
+                    <div class="modal fade" id="statusModal{{ parcel[0] }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update Parcel Status</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form method="POST" action="{{ url_for('update_parcel_status') }}">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="tracking_number" value="{{ parcel[1] }}">
+                                        <div class="mb-3">
+                                            <label class="form-label">Status</label>
+                                            <select name="status" class="form-select" required>
+                                                <option value="Booked" {% if parcel[12] == 'Booked' %}selected{% endif %}>Booked</option>
+                                                <option value="Picked Up" {% if parcel[12] == 'Picked Up' %}selected{% endif %}>Picked Up</option>
+                                                <option value="In Transit" {% if parcel[12] == 'In Transit' %}selected{% endif %}>In Transit</option>
+                                                <option value="Out for Delivery" {% if parcel[12] == 'Out for Delivery' %}selected{% endif %}>Out for Delivery</option>
+                                                <option value="Delivered" {% if parcel[12] == 'Delivered' %}selected{% endif %}>Delivered</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Current Location</label>
+                                            <input type="text" name="location" class="form-control" 
+                                                   value="{{ parcel[15] or '' }}" placeholder="Enter current location">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Notes</label>
+                                            <textarea name="notes" class="form-control" rows="3" 
+                                                      placeholder="Add any delivery notes"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Update Status</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Simple client-side search functionality
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.placeholder = 'Search parcels...';
+        searchInput.className = 'form-control mb-3';
+        
+        const cardHeader = document.querySelector('.card-header');
+        cardHeader.appendChild(searchInput);
+        
+        searchInput.addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#parcelsTable tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    });
+</script>
+{% endblock %}

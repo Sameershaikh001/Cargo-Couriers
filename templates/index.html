@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5" style="margin-top: 76px;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">Fast & Reliable Courier Services</h1>
+                <p class="lead">Your trusted partner for all logistics needs. Fast delivery, real-time tracking, and exceptional customer service.</p>
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="btn btn-light btn-lg me-3">Book Now</a>
+                    <a href="{{ url_for('tracking') }}" class="btn btn-outline-light btn-lg">Track Parcel</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col">
+                <h2>Why Choose AWT Cargo?</h2>
+                <p class="lead">We provide comprehensive logistics solutions</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+                        <h5>Fast Delivery</h5>
+                        <p>Same-day and next-day delivery options available for urgent shipments.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                        <h5>Real-time Tracking</h5>
+                        <p>Track your parcels in real-time with our advanced tracking system.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-rupee-sign fa-3x text-primary mb-3"></i>
+                        <h5>Affordable Pricing</h5>
+                        <p>Competitive rates with no hidden charges. Transparent pricing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Actions -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center p-5">
+                        <i class="fas fa-box fa-4x text-primary mb-3"></i>
+                        <h3>Book a Courier</h3>
+                        <p>Schedule a pickup and get your parcel delivered anywhere in India.</p>
+                        <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center p-5">
+                        <i class="fas fa-search fa-4x text-primary mb-3"></i>
+                        <h3>Track Your Parcel</h3>
+                        <p>Enter your tracking number to get real-time updates.</p>
+                        <form action="{{ url_for('tracking') }}" method="POST" class="mt-4">
+                            <div class="input-group">
+                                <input type="text" name="tracking_number" class="form-control form-control-lg" placeholder="Enter tracking number" required>
+                                <button class="btn btn-primary" type="submit">Track</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
