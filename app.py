@@ -28,7 +28,10 @@ def get_db_connection():
 
 
 def init_db():
-    conn = get_db_connection()
+    # ✅ Ensure database folder exists (Vercel fix)
+    os.makedirs(os.path.join(BASE_DIR, 'database'), exist_ok=True)
+
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
     # Users table
